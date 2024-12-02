@@ -4,7 +4,7 @@ from .models import Vehiculo
 class VehiculoForm(forms.ModelForm):
     class Meta:
         model = Vehiculo
-        fields = ['descripcion', 'marca', 'modelo', 'año', 'precio', 'propietario']  # Corregido: 'fields = fields = ...'
+        fields = ['descripcion', 'marca', 'modelo', 'año', 'precio', 'propietario']
         widgets = {
             'marca': forms.TextInput(attrs={'class': 'form-control'}),
             'modelo': forms.TextInput(attrs={'class': 'form-control'}),
@@ -13,4 +13,3 @@ class VehiculoForm(forms.ModelForm):
             'precio': forms.NumberInput(attrs={'class': 'form-control'}),
             'propietario': forms.Select(attrs={'class': 'form-control'}),
         }
-

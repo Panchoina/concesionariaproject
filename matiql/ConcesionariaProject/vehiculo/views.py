@@ -9,21 +9,19 @@ from vehiculo.forms import VehiculoForm
 def VenderAuto(request):
     form = VehiculoForm()
     data = {
-        'titulo':'Crear Cargo',
-        'formulario':form,
-        'ruta':'cargos'
+        'titulo': 'Crear Cliente',
+        'formulario': form,
+        'ruta': 'cargos'
     }
-    #verificamos si la petición es por método post
+
     if request.method == 'POST':
-        #capturar los datos
         form = VehiculoForm(request.POST)
-        print("aaaaaw")
-        #verificar si los datos validos, orm de django is_valid()
         if form.is_valid():
-            print("aw")
-            #save() permtie guardart los datos en la tabla correspondiente
+            # Guardamos el formulario
             form.save()
-            #messages permite enviar un mensaje al template
-            messages.success(request,'Cargado creado con éxito!!!')
-            return redirect("homepag")
-    return render(request,"cliente/Vender.html", data)  
+            # Mensaje de éxito
+            messages.success(request, 'Cliente creado con éxito!!!')
+            # Redirigir al login después de crear el cliente
+            return redirect('login')
+
+    return render(request, 'cliente/Vender.html', data)
