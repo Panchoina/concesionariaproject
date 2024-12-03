@@ -28,3 +28,4 @@ class ClienteFormRegis(forms.ModelForm):
             raise forms.ValidationError("Las contraseñas no coinciden")
 
         return cleaned_data
+

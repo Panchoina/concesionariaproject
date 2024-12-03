@@ -68,7 +68,7 @@ def listar(request):
 def EliminarEmpleado(request,id):
     item = Empleado.objects.get(pk=id)
     item.delete()
-    return redirect('listar')
+    return redirect('empleado/listar')
 
 @permission_required(['empleado.change_empleado'], login_url='/accounts/login/', raise_exception=True)
 def ActualizarEmpleado(request,id):

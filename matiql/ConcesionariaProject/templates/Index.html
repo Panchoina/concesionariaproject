@@ -6,28 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concesionaria Online</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <h1>Bienvenido a Concesionaria Online</h1>
-
-    <div>
-        <h3>Permisos del usuario:</h3>
-        <ul>
-            {% if user.is_authenticated %}
-                <!-- Listar todos los permisos del usuario autenticado -->
-                {% for perm in user.get_all_permissions %}
-                    <li>{{ perm }}</li>
-                {% endfor %}
-            {% else %}
-                <p>Usuario no autenticado. Por favor, inicia sesión.</p>
-            {% endif %}
-        </ul>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <input type="submit" class="btn btn-danger btn-large" value="salir" style="width: 100px;">
-        </form>
-    </div>
-
     <ul class="dropdown-menu">
         <!-- Verificar permisos específicos -->
         {% if user.is_authenticated %}
