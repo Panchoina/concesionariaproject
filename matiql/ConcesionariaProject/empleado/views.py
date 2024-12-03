@@ -50,7 +50,7 @@ def RegistroEmpleado(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Empleado creado con éxito!!!')
-                return redirect('homepag')  # Redirige al login u otra página según corresponda
+                return redirect('listar')  # Redirige al login u otra página según corresponda
             else:
                 messages.error(request, 'Hubo un error al registrarse')
         else:
@@ -59,8 +59,7 @@ def RegistroEmpleado(request):
     return render(request, 'registration/agregarEmpleado.html', data)
 
 # Lista de los empleados
-
-@permission_required(['empleado.view_empleado'], login_url='/accounts/login/', raise_exception=True)
+@permission_required(['empleado.add_empleado', 'empleado.view_empleado'], login_url='/accounts/login/', raise_exception=True)
 def listar(request):
     empleados = Empleado.objects.all()  # Obtenemos todos los empleados inicialmente
     filtro = EmpleadoFiltro(request.GET) 

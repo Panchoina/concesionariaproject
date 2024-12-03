@@ -8,7 +8,7 @@
             <a class="navbar-brand" href="{% url 'homepag' %}">Bienvenido, {{ user.username }}</a>
             
             <!-- parte administrativa -->
-            <a class="navbar-brand" href="{% url 'VenderAuto' %}">Vender un auto</a>
+            <a class="navbar-brand" href="{% url 'crear_vehiculo' %}">Vender un auto</a>
             <a class="navbar-brand" href="{% url 'RegistroEmpleado' %}">Agregar un administrador</a>
             <a class="navbar-brand" href="{% url 'listar' %}">Ver los administradores agregados</a>
             
@@ -31,19 +31,20 @@
             <div class="card card-body mt-2">
 <!-- aca colocar un if si es que hay productos -->
  
-            {% if vehiculo  %}
+            {% if lista  %}
                 
-                {% for i in vehiculo %}
-                    <div class="container">
-                        <div class="card card-body">
-                            <!-- {{ i.foto }} por ahora no hay foto xd-->
-                            {{ i.nombre }}
-                            {{ i.modelo }}
-                            {{ i.patente }}
-                            {{ i.descripcion }}
-                        </div>
+                {% for i in lista %}
+                <div class="container">
+                    <div class="card card-body">
+                        <!-- Mostrar los detalles del vehículo -->
+                        <p><strong>Descripción:</strong> {{ i.descripcion }}</p>
+                        <p><strong>Marca:</strong> {{ i.marca }}</p>
+                        <p><strong>Modelo:</strong> {{ i.modelo }}</p>
+                        <p><strong>Año:</strong> {{ i.año }}</p>
+                        <p><strong>Precio:</strong> {{ i.precio }}</p>
                     </div>
-                {% endfor %}
+                </div>
+            {% endfor %}
                     
             {% else %}
                 <center><h1>Por ahora no hay vehiculos a la venta</h1></center>
