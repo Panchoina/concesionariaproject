@@ -1,20 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
 from empleado.forms import EmpleadoForm
-
+from empleado.models import Empleado
 # Create your views here.
 
 # login de los empleados
-@login_required(login_url='accounts/login')
 def inicio(request):
     return render(request,'Index.html')
 # Los empleados seran registrados por la pagina de forma administrativa
 
 # CRUD
-
 # registro de empleado
-@permission_required('empleado.add_empleado',login_url='/')
 def CrearEmpleado(request):
     form = EmpleadoForm()
     data = {
@@ -34,17 +31,19 @@ def CrearEmpleado(request):
     return render(request,'empleado/agregarEmpleado.html',data)
 
 # Lista de los empleados
-@permission_required('empleado.view_empleado',login_url='/')
-def ListarEmpelados(request):
+def listar(request):
     deptos = Empleado.objects.all()
     data = {'lista':deptos}
-    return render(request,'empleado/empleados.html',data)
+    return render(request,'empleado/verempleados.html',data)
 
-# editar empleados
-def ActualizarEmpleados(request,id):
-    #buscar el cargo por su id
+def EliminarEmpleado(request,id):
     item = Empleado.objects.get(pk=id)
-    #item que contiene el Empleado buscado
+    item.delete()
+    return redirect('listar')
+
+def ActualizarEmpleado(request,id):
+    # aqui se busca el empleado por la id que le damos por el boton
+    item = Empleado.objects.get(pk=id)
     form = EmpleadoForm(instance=item)
     if request.method == 'POST':
         form = EmpleadoForm(request.POST,instance=item)
@@ -56,7 +55,7 @@ def ActualizarEmpleados(request,id):
         'formulario':form,
         'ruta':'empleados'
     }
-    return render(request,'empleado/create.html',data)
+    return render(request,'empleado/agregarEmpleado.html',data)
 
 # Imprimir los empleados a excel
 def ImprimirEmpleados(request):
