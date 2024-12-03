@@ -11,3 +11,5 @@ class Vehiculo(models.Model):
 
     def __str__(self):
         return f"{self.marca} {self.modelo} ({self.año})"
+    class Meta:
+        db_table = "Vehiculo"

@@ -13,8 +13,8 @@
                             <div class="card-body p-md-5">
                                 <div class="row justify-content-center">
                                     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                        
-                                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4">Sign up</p>
+                                        <a href="{% url 'login' %}" class="btn btn-success">Volver</a>
+                                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4">Registrarse</p>
                         
                                         <form class="mx-1 mx-md-4 row" action="{% url 'Registro' %}" method="post" >
                                             {% csrf_token %}
@@ -26,8 +26,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        
-                                        
                                         <!-- BOTON PARA REGISTRAR -->
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                             <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg">Register</button>

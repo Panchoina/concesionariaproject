@@ -2,10 +2,12 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from vehiculo.forms import VehiculoForm
-
+from django.contrib.auth.decorators import permission_required
 # Create your views here.
 
 # Registrar vehículo
+
+@permission_required(['vehiculo.add_vehiculo'], login_url='/accounts/login/', raise_exception=True)
 def VenderAuto(request):
     form = VehiculoForm()
     data = {

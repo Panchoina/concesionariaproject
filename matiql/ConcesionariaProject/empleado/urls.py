@@ -6,7 +6,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('crearempleado/', views.CrearEmpleado, name='crearempleado'),
+    path('RegistroEmpleado/', views.RegistroEmpleado, name='RegistroEmpleado'),
     path('listar/', views.listar, name='listar'),
     path('actualizar/<int:id>/', views.ActualizarEmpleado, name='actualizar_empleados'),
     path('eliminarempleado/<int:id>',views.EliminarEmpleado,name='eliminarempleado'),
