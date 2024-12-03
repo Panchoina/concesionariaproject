@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 LOGIN_REDIRECT_URL = '/cliente/homepag/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_URL = '/accounts/login/'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

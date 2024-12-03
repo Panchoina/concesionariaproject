@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 <body>
+    <ul class="dropdown-menu">
+        <!-- perms pemite acceder a los permisos desde el template -->
+        {% if perms.clientes.view_vehiculo%}
+        <li><a class="dropdown-item" href="{% url 'VenderAuto' %}">Vehiculo</a></li>
+        {% endif %}
+        {% if perms.clientes.view_cliente %}
+        <li><a class="dropdown-item" href="{% url 'homepag' %}">Clientes</a></li>
+        {% endif %}
+        {% if perms.clientes.view_empleado %} 
+        <li><a class="dropdown-item" href="{% url 'listar' %}">Empleados</a></li>
+        {% endif %}
+      </ul>
     {% block contenido %}
         
     {% endblock contenido %}
