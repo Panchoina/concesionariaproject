@@ -5,7 +5,6 @@ from django.template import RequestContext
 from cliente.forms import ClienteFormRegis
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
 from vehiculo.models import Vehiculo
 from django.contrib.auth.models import Group, Permission
 
@@ -15,7 +14,7 @@ def inicio(request):
     return render(request, 'Index.html',context=RequestContext(request))
 
 # Vista para la página principal de los clientes, con permisos
-@permission_required(['cliente.view_cliente'], login_url='/accounts/login/', raise_exception=True)
+#@permission_required(['cliente.view_cliente'], login_url='/accounts/login/', raise_exception=True)
 def homepag(request):
     # lista de los vehiculos en venta
     

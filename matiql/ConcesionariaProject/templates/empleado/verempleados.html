@@ -95,12 +95,11 @@
                 cancelButtonColor: "#3085d6",
                 confirmButtonText: "Eliminar"
             }).then((result) => {
-                if (result.isConfirmed) {
-                    // Redirigir a la URL de eliminación
-                    window.location.href = '/empleado/eliminarempleado/' + id ;  // Asegúrate de que el 'id' sea correcto
-                }
-            });
+                if (result.isConfirmed)
+                    window.location.href = '/empleado/verempleado/' + id
+            })
         }
+        //función para exportar los datos a excel
         const exportar = () => {
                 //url para descargar el excel
                 const url = '/empleado/exportexcel' 
