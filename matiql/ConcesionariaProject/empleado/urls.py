@@ -7,7 +7,8 @@ from . import views
 
 urlpatterns = [
     path('crearempleado/', views.CrearEmpleado, name='crearempleado'),
-    path('listar/', views.ListarEmpelados, name='listar_empleados'),
-    path('actualizar/<int:id>/', views.ActualizarEmpleados, name='actualizar_empleados'),
+    path('listar/', views.listar, name='listar'),
+    path('actualizar/<int:id>/', views.ActualizarEmpleado, name='actualizar_empleados'),
+    path('eliminarempleado/<int:id>',views.EliminarEmpleado,name='eliminarempleado'),
     path('imprimir/', views.ImprimirEmpleados, name='imprimir_empleados'),
 ]
