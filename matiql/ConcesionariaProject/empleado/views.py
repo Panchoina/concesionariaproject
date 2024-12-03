@@ -50,7 +50,7 @@ def RegistroEmpleado(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Empleado creado con éxito!!!')
-                return redirect('listar')  # Redirige al login u otra página según corresponda
+                form = EmpleadoForm()
             else:
                 messages.error(request, 'Hubo un error al registrarse')
         else:

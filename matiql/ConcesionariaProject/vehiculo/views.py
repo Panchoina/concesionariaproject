@@ -14,7 +14,6 @@ from django.http import HttpResponse
 
 
 @permission_required(['vehiculo.add_vehiculo'], login_url='/accounts/login/', raise_exception=True)
-<<<<<<< HEAD
 def crear_vehiculo(request):
     if request.method == 'POST':
         formulario = VehiculoForm(request.POST)
@@ -31,7 +30,6 @@ def listarAutos(request):
     vehiculo = Vehiculo.objects.all()
     data = {'lista':vehiculo}
     return render(request,'cliente/Inicio.html',data)
-=======
 def VenderAuto(request):
     form = VehiculoForm()
     data = {
@@ -59,17 +57,6 @@ def VenderAuto(request):
     return render(request, 'cliente/Vender.html', data)
 
 
-
-@permission_required(['vehiculo.view_vehiculo'], login_url='/accounts/login/', raise_exception=True)
-def ListarVehiculos(request):
-    vehiculos = Vehiculo.objects.all()
-    data = {
-        'titulo': 'Lista de Vehículos',
-        'lista': vehiculos,
-    }
-    return render(request, 'vehiculo/verVehiculos.html', data)
-
-
 @permission_required(['vehiculo.change_vehiculo'], login_url='/accounts/login/', raise_exception=True)
 def ActualizarVehiculo(request, id):
     vehiculo = get_object_or_404(Vehiculo, pk=id)
@@ -83,9 +70,9 @@ def ActualizarVehiculo(request, id):
 
     data = {
         'titulo': 'Editar Vehículo',
-        'formulario': form,
+        'formulario': form
     }
-    return render(request, 'vehiculo/agregarVehiculo.html', data)
+    return render(request, 'cliente/Vender.html', data)
 
 
 @permission_required(['vehiculo.delete_vehiculo'], login_url='/accounts/login/', raise_exception=True)
@@ -96,19 +83,3 @@ def EliminarVehiculo(request, id):
     return redirect('listar_vehiculos')
 
 
-@permission_required(['vehiculo.view_vehiculo'], login_url='/accounts/login/', raise_exception=True)
-def ExportarVehiculosExcel(request):
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="vehiculos.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(['Descripción', 'Marca', 'Modelo', 'Año', 'Precio', 'Propietario'])
-
-    vehiculos = Vehiculo.objects.all().values_list(
-        'descripcion', 'marca', 'modelo', 'año', 'precio', 'propietario__nombre'
-    )
-    for vehiculo in vehiculos:
-        writer.writerow(vehiculo)
-
-    return response
->>>>>>> a39c2cccac45fda94b145c71a494cf2e0d9fc94b

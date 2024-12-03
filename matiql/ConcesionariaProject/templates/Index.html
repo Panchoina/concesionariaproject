@@ -10,34 +10,15 @@
 
 </head>
 <body>
-<<<<<<< HEAD
     
-=======
+    <center>
     <h1>Bienvenido a Concesionaria Online</h1>
-
-    <div>
-        <h3>Permisos del usuario:</h3>
-        <ul>
-            {% if user.is_authenticated %}
-                <!-- Listar todos los permisos del usuario autenticado -->
-                {% for perm in user.get_all_permissions %}
-                    <li>{{ perm }}</li>
-                {% endfor %}
-            {% else %}
-                <p>Usuario no autenticado. Por favor, inicia sesión.</p>
-            {% endif %}
-        </ul>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <input type="submit" class="btn btn-danger btn-large" value="salir" style="width: 100px;">
-        </form>
-    </div>
-
+    </center>
     <ul class="dropdown-menu">
         <!-- Verificar permisos específicos -->
         {% if user.is_authenticated %}
             {% if perms.clientes.view_vehiculo %}
-            <li><a class="dropdown-item" href="{% url 'VenderAuto' %}">Vehículo</a></li>
+            <li><a class="dropdown-item" href="#">Vehículo</a></li>
             {% endif %}
             {% if perms.clientes.view_cliente %}
             <li><a class="dropdown-item" href="{% url 'homepag' %}">Clientes</a></li>
@@ -49,7 +30,6 @@
             <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar Sesión</a></li>
         {% endif %}
     </ul>
->>>>>>> a39c2cccac45fda94b145c71a494cf2e0d9fc94b
     {% block contenido %}
     <!-- Contenido específico de la página -->
     {% endblock contenido %}

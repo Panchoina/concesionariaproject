@@ -36,12 +36,17 @@
                 {% for i in lista %}
                 <div class="container">
                     <div class="card card-body">
-                        <!-- Mostrar los detalles del vehículo -->
-                        <p><strong>Descripción:</strong> {{ i.descripcion }}</p>
-                        <p><strong>Marca:</strong> {{ i.marca }}</p>
-                        <p><strong>Modelo:</strong> {{ i.modelo }}</p>
-                        <p><strong>Año:</strong> {{ i.año }}</p>
-                        <p><strong>Precio:</strong> {{ i.precio }}</p>
+                        <form action="">
+                                 <!-- Mostrar los resultados del vehículo -->
+                                <p><strong>Descripción:</strong> {{ i.descripcion }}</p>
+                                <p><strong>Marca:</strong> {{ i.marca }}</p>
+                                <p><strong>Modelo:</strong> {{ i.modelo }}</p>
+                                <p><strong>Año:</strong> {{ i.año }}</p>
+                                <p><strong>Precio:</strong> {{ i.precio }}</p>
+                            <a href="{% url 'ActualizarVehiculo' i.id %}" class="btn btn-warning">Editar</a>
+                            <a href="javascript:void(0);" onclick="eliminar('{{ i.id }}')" class="btn btn-danger" role="button">Eliminar</a>
+                        </form>
+                        
                     </div>
                 </div>
             {% endfor %}
@@ -53,5 +58,22 @@
             </div>
         </div>
     </div>
+    <script>
+        const eliminar = (id) => {
+            Swal.fire({
+                title: "¿Está seguro de eliminar este vehículo?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Eliminar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/EliminarVehiculo/' + id ;
+                }
+            })
+        }
+    </script>
+    
 {% endblock contenido %}
     
