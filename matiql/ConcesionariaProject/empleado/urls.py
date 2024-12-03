@@ -10,5 +10,6 @@ urlpatterns = [
     path('listar/', views.listar, name='listar'),
     path('actualizar/<int:id>/', views.ActualizarEmpleado, name='actualizar_empleados'),
     path('eliminarempleado/<int:id>',views.EliminarEmpleado,name='eliminarempleado'),
-    path('imprimir/', views.ImprimirEmpleados, name='imprimir_empleados'),
+    path('ImportarEmpleados/', views.ImportarEmpleados, name='ImportarEmpleados'),
+    path('exportexcel',views.ImportarEmpleados,name='exportexcel'),
 ]

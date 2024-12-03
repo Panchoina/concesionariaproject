@@ -16,9 +16,22 @@ class EmpleadoForm(forms.ModelForm):
             'direccion': forms.TextInput(attrs={'class': 'form-control'}),
             'FonoEmpleado': forms.NumberInput(attrs={'class': 'form-control'}),
             'gmail': forms.EmailInput(attrs={'class': 'form-control'}),
-            'area': forms.TextInput(attrs={'class': 'form-control'}),
             'FechaNacimiento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+    # Cambiar el campo 'area' a un 'ChoiceField'
+    AREA_CHOICES = [
+        ('', '----------'),  # Opción vacía
+        ('supervisor', 'Supervisor'),
+        ('administrador', 'Administrador'),
+        ('soporte', 'Soporte'),
+    ]
+    
+    area = forms.ChoiceField(
+        choices=AREA_CHOICES,
+        required=True,  # Cambia a True si el campo 'area' es obligatorio
+        widget=forms.Select(attrs={'class': 'form-control'}),
+    )
 
     def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
@@ -26,3 +39,19 @@ class EmpleadoForm(forms.ModelForm):
         if password1 != password2:
             raise forms.ValidationError("Las contraseñas no coinciden.")
         return password2
+
+# FILTROOOS
+class EmpleadoFiltro(forms.Form):
+    # Crea una lista de áreas distintas desde el modelo Empleado
+    AREA_CHOICES = [
+        ('', 'Todas las áreas'),  # Opción vacía para mostrar "Todas las áreas"
+        ('supervisor', 'Supervisor'),
+        ('administrador', 'Administrador'),
+        ('soporte', 'Soporte'),
+    ]
+
+    area = forms.ChoiceField(
+        choices=AREA_CHOICES,
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )

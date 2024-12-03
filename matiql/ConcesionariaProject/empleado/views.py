@@ -1,11 +1,13 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required,permission_required
 from django.contrib import messages
-from empleado.forms import EmpleadoForm
+from empleado.forms import EmpleadoFiltro, EmpleadoForm
 from empleado.models import Empleado
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+import xlwt
 # Create your views here.
 
 # login de los empleados
@@ -60,8 +62,16 @@ def RegistroEmpleado(request):
 
 @permission_required(['empleado.view_empleado'], login_url='/accounts/login/', raise_exception=True)
 def listar(request):
-    deptos = Empleado.objects.all()
-    data = {'lista':deptos}
+    empleados = Empleado.objects.all()  # Obtenemos todos los empleados inicialmente
+    filtro = EmpleadoFiltro(request.GET) 
+    # Si el formulario es válido, aplicamos los filtros
+    if filtro.is_valid():
+        area = filtro.cleaned_data.get('area')
+
+        # Filtrar según el área seleccionada
+        if area:
+            empleados = empleados.filter(area=area)
+    data = {'lista':empleados}
     return render(request,'empleado/verempleados.html',data)
 
 @permission_required(['empleado.delete_empleado'], login_url='/accounts/login/', raise_exception=True)
@@ -88,5 +98,26 @@ def ActualizarEmpleado(request,id):
     return render(request,'registration/agregarEmpleado.html',data)
 
 # Imprimir los empleados a excel
-def ImprimirEmpleados(request):
-    return render(request,"")
+def ImportarEmpleados(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Empleados'] = 'attachment; filename=empleados.xls'
+    archivo = xlwt.Workbook(encoding='utf-8')
+    hoja = archivo.add_sheet('Empleados')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    columnas = ['Run','Nombre','Apellido','Dirección','Fono de el Empleado','gmail','area','contraseña','Fecha Nacimiento','user_id']
+
+    for i in range(len(columnas)):
+        hoja.write(row_num,i,columnas[i],font_style)
+
+    font_style = xlwt.XFStyle()
+    filas = Empleado.objects.all().values_list('rut','nombre','apellido','direccion','FonoEmpleado','gmail','area','contraseña','FechaNacimiento','user_id')
+    for f in filas:
+        row_num += 1
+        for i in range(len(f)):
+            hoja.write(row_num,i,f[i],font_style)
+    #guardar el archivo
+    archivo.save(response)
+    return response
